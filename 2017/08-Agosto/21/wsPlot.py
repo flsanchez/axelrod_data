@@ -18,6 +18,9 @@ for n in nEdgeList:
 
 x = np.array(nEdgeList)/float(edgeTot)
 
+np.savetxt("wsPlotData_2dos.txt", [x,l,c], fmt = '%.8f', header='#Rewire/#Total l/l0 c/c0')
+
+
 plt.plot(x, l, 'rs', label = 'l')
 plt.plot(x, c, 'bs', label = 'c')
 plt.legend(loc='best')

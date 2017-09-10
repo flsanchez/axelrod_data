@@ -7,6 +7,7 @@ cwd = os.getcwd()+'/nEdgeRew_'
 nEdgeList = [0,1,5,10,49,97,243,625,970,1250,1875,2500]
 edgeTot = 9702
 qCrit = []
+qError = []
 
 for n in nEdgeList:
 	path = cwd+str(n)
@@ -14,6 +15,8 @@ for n in nEdgeList:
 	var = np.array([])
 	Smax = np.array([])
 	listDir = os.listdir(path)
+	aux = np.loadtxt(path+'/run.log',unpack=True)
+	qError.append(aux[2])
 	for files in listDir:
 		if files.endswith(".txt") and files != "qlc.txt":
 			filePath = path+'/'+files
@@ -41,8 +44,11 @@ for n in nEdgeList:
 	qCrit.append(qMin)
 
 x = np.array(nEdgeList)/float(edgeTot)
-plt.plot(x, qCrit, 'rs-')
-plt.xlabel('#Rewire/#Totales')
-plt.ylabel('q Critico')
+np.savetxt("qCritData_2dos.txt", [x,qCrit, qError], fmt = '%.8f', header='#Rewire/#Total qCrit qCritError')
+
+ax=plt.axes()
+ax.errorbar(x,qCrit, yerr=qError, marker='s', color='r')
+ax.set_xlabel('#Rewire/#Totales')
+ax.set_ylabel('q Critico')
 plt.savefig('qCrit.png')
 plt.show()
