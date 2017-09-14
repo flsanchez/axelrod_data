@@ -8,10 +8,11 @@ import os
 cwd=os.getcwd()
 ls=os.listdir(cwd)
 
-fragList = [600, 820, 2000]
+fragList = [225, 275, 325]
+names = ['q_{0}.frag'.format(i) for i in fragList]
+plotN = 311
 
-for files in ls:
-	if files.endswith(".frag"):
+for files in names:
 
 		f = open(files,'r')
 		f.readline()
@@ -20,12 +21,15 @@ for files in ls:
 		n = int(aux[1])
 		q = int(aux[3])
 		f.close()
-		if(q in fragList) :
-			size, freq = np.loadtxt(files,unpack=True)
-			plt.plot(np.log(size),np.log(freq),'o',label="q = {0}".format(q));
-			plt.xlabel("log(frag_size)")
-			plt.ylabel("log(freq)")
+		plt.subplot(plotN)
+		size, freq = np.loadtxt(files,unpack=True)
+		plt.plot(size,freq,'ro',label="q = {0}".format(q))
+		plt.yscale('log')
+		plt.xscale('log')
+		plt.xlabel("Fragment Size")
+		plt.ylabel("Freq")
+		plt.legend(loc='best')
+		plotN = plotN + 1
 
-plt.legend(loc='best')
 plt.savefig("fragmentos.png")
 plt.show()

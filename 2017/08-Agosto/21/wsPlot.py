@@ -16,17 +16,27 @@ for n in nEdgeList:
 		l.append(np.average(data[1]))
 		c.append(np.average(data[2]))
 
-x = np.array(nEdgeList)/float(edgeTot)
+x1 = np.array(nEdgeList,dtype='float64')/edgeTot
+x2 = np.array(nEdgeList)
+np.savetxt("wsPlotData_2dos.txt", [x1, x2, l,c], fmt = '%.8f', header='#Rewire/#Total #Rewire l/l0 c/c0')
 
-np.savetxt("wsPlotData_2dos.txt", [x,l,c], fmt = '%.8f', header='#Rewire/#Total l/l0 c/c0')
-
-
-plt.plot(x, l, 'rs', label = 'l')
-plt.plot(x, c, 'bs', label = 'c')
+plt.figure(1)
+plt.plot(x1, l, 'rs', label = 'l/l0')
+plt.plot(x1, c, 'bs', label = 'C/C0')
 plt.legend(loc='best')
 plt.xlabel('#Rewire/#Total', fontsize = 16)
 plt.xscale('log',nonposx = 'clip')
-#plt.xlim((0,1))
+plt.xlim((0.0001,1))
 plt.ylim((0,1.05))
-plt.savefig("ws2.png")
+plt.savefig("ws.png")
+
+plt.figure(2)
+plt.plot(x2, l, 'rs', label = 'l/l0')
+plt.plot(x2, c, 'bs', label = 'C/C0')
+plt.legend(loc='best')
+plt.xlabel('#Rewire', fontsize = 16)
+plt.xscale('log',nonposx = 'clip')
+plt.ylim((0,1.05))
+plt.savefig("wsNotTotal.png")
+
 plt.show()

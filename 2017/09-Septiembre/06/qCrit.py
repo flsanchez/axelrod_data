@@ -4,7 +4,7 @@ import os
 
 cwd = os.getcwd()+'/nEdgeRew_'
 
-nEdgeList = [0,1,5,10,49,98,249,668,1077,1435,2324]#,3368]#2500]
+nEdgeList = [0,1,5,10,49,98,249,668,1077,1435,2324,3368]#2500]
 edgeTot = 9702
 qCrit = []
 qError = []
